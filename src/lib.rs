@@ -25,8 +25,10 @@ mod image_matrix;
 pub mod face_detection;
 pub mod landmark_prediction;
 pub mod face_encoding;
+pub mod face_landmarks;
 
 pub use image_matrix::*;
+pub use face_landmarks::FaceLandmarks;
 
 use std::path::*;
 use std::ffi::*;

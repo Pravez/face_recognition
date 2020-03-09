@@ -1,13 +1,10 @@
 //! Face encoding structs.
 
-use std::path::*;
-use std::ops::*;
 use std::slice;
 use std::fmt;
-
-use *;
-use landmark_prediction::*;
-use image_matrix::*;
+use std::path::Path;
+use super::*;
+use std::ops::Deref;
 
 cpp_class!(unsafe struct FaceEncodingNetworkInner as "face_encoding_nn");
 
@@ -53,7 +50,7 @@ impl FaceEncodingNetwork {
         let landmarks = landmarks.as_ptr();
         let net = &self.inner;
 
-        unsafe {
+        let face_encodings = unsafe {
             cpp!([
                     net as "face_encoding_nn*",
                     image as "matrix<rgb_pixel>*",
@@ -97,7 +94,9 @@ impl FaceEncodingNetwork {
 
                 return encodings;
             })
-        }
+        };
+
+        face_encodings
     }
 }
 

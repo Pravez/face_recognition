@@ -1,21 +1,23 @@
 [package]
 name = "face_recognition"
 version = "0.1.0"
-authors = ["Ashley <expenses@airmail.cc>"]
+authors = ["Ashley <expenses@airmail.cc>", "Pravez <paul.ravezb@protonmail.com>"]
 build = "build.rs"
+edition = "2018"
 
 [dependencies]
-cpp = "*"
-image = "*"
+cpp = "^0.5.4"
+image = "^0.23.1"
 
 [build-dependencies]
-cpp_build = "*"
-reqwest = {version = "*", optional = true}
-bzip2 = {version = "*", optional = true}
+cpp_build = "^0.5.4"
+reqwest = { version = "^0.10", features = ["json"], optional = true}
+tokio = { version = "^0.2", features = ["full"], optional = true}
+bzip2 = {version = "^0.3.3", optional = true}
 
 [dev-dependencies]
-lazy_static = "*"
+lazy_static = "^1.4.0"
 
 [features]
 default = []
-download-models = ["reqwest", "bzip2"]
+download-models = ["reqwest", "bzip2", "tokio"]

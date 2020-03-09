@@ -5,6 +5,7 @@ use image::*;
 use face_recognition::*;
 use face_recognition::face_detection::*;
 use face_recognition::landmark_prediction::*;
+use std::time::Instant;
 
 fn draw_rectangle(image: &mut RgbImage, rect: &Rectangle, colour: Rgb<u8>) {
     for x in rect.left .. rect.right {
@@ -40,8 +41,11 @@ fn main() {
 
     let red = Rgb {data :[255, 0, 0]};
     let green = Rgb {data: [0, 255, 0]};
-    
+
+    let mut now = Instant::now();
     let face_locations = detector.face_locations(&matrix);
+    println!("detected in {}", now.elapsed().as_millis());
+
 
     for r in face_locations.iter() {
         draw_rectangle(&mut image, &r, red);
@@ -53,7 +57,9 @@ fn main() {
         }
     }
 
+    now = Instant::now();
     let face_locations = cnn_detector.face_locations(&matrix);
+    println!("detected with cnn in {}", now.elapsed().as_millis());
 
     for r in face_locations.iter() {
         draw_rectangle(&mut image, &r, green);

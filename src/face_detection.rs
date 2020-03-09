@@ -1,11 +1,9 @@
 //! Face detection structs.
 
-use *;
-use image_matrix::*;
-
-use std::ops::*;
-use std::path::*;
 use std::{fmt, slice};
+use super::*;
+use std::path::Path;
+use std::ops::Deref;
 
 
 cpp_class!(unsafe struct FaceDetectorInner as "frontal_face_detector");
