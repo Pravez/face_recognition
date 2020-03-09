@@ -32,8 +32,8 @@ async fn download_and_unzip(url: &str) -> Result<(), reqwest::Error> {
 
     println!("Downloading '{}'...", url);
 
-    let response = reqwest::get(url).await?.text().await?;
-    let mut decoded = BzDecoder::new(response.as_bytes());
+    let response = reqwest::get(url).await?.bytes().await?;
+    let mut decoded = BzDecoder::new(response.as_ref());
     let mut file = std::fs::File::create(&path).unwrap();
     std::io::copy(&mut decoded, &mut file).unwrap();
     Ok(())
